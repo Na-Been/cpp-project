@@ -1,0 +1,127 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Atm {
+
+public:
+    string name;
+    int accountNumber;
+    float initialAmount;
+    int pinNumber;
+    int choice;
+
+    string input_name;
+    int input_acNum;
+    float input_amount;
+    int input_pinNum;
+
+    void atmMenu() {
+        cout << endl;
+        cout << "enter 1 to create account:"<<endl;
+        cout << "enter 2 to deposit amount:" << endl;
+        cout << "enter 3 to withdraw amount:" << endl;
+        cout << "enter 4 to check balance:" << endl;
+        cout << "enter 5 to exit:" << endl;
+        cout << "enter your choice:";
+        cin >> choice;
+    }
+
+    void takeDetails() {
+        cout << "enter your name";
+        cin >> input_name;
+        cout << "enter your account number:";
+        cin >> input_acNum;
+        cout << "enter your pin number:";
+        cin >> input_pinNum;
+    }
+    void createAccount() {
+        takeDetails();
+        cout << "enter some initial amount to create account:";
+        cin >> input_amount;
+
+        name = input_name;
+        accountNumber = input_acNum;
+        pinNumber = input_pinNum;
+        initialAmount = input_amount;
+
+        cout << "congratulations ! your account had been created"<<endl
+            << "your name is:" << name << endl
+            << " your account number is" << accountNumber << endl
+            << "your pin number is" << pinNumber << endl
+            << "your opening balance is: " << initialAmount << endl;
+    }
+
+    void depositAmount() {
+        takeDetails();
+        if (input_name == name && input_acNum == accountNumber && input_pinNum == pinNumber) {
+
+            cout << "enter the amount you want to deposit";
+            cin >> input_amount;
+
+               initialAmount = initialAmount+input_amount;
+
+               cout << "your amount had been deposited "
+                    << "your balance is: " << initialAmount << endl;
+            
+        }else {
+            cout << "sorry the given details doesnot match"<<endl;
+        }
+    }
+
+    void withdrawAmount() {
+        takeDetails();
+        if (input_name == name && input_acNum == accountNumber && input_pinNum == pinNumber) {
+            cout << "how much money you want to withdraw?";
+            cin >> input_amount;
+            if (initialAmount > input_amount) {
+                initialAmount = initialAmount - input_amount;
+                cout << "thank you for the transistion your reamining balance is " << initialAmount << endl;
+            }
+            else {
+                cout << "'insufficient Balance";
+            }
+        }else{
+            cout << "sorry the given details doesnoot match" << endl;
+        }
+    }
+
+    void checkBalance() {
+        takeDetails();
+        if (input_name == name && input_acNum == accountNumber && input_pinNum == pinNumber) {
+            cout << "your balance is $" << initialAmount;
+        }
+        else {
+            cout << "name doesnot exist or accountrNumber doesnot exist or pin number doesnot match";
+        }
+    }
+};
+
+
+int main() {
+    int choice = 0;
+    Atm atm;
+    do {
+        atm.atmMenu();
+        choice = atm.choice;
+        switch (choice) {
+        case 1:
+            atm.createAccount();
+            break;
+        case 2:
+            atm.depositAmount();
+            break;
+        case 3:
+            atm.withdrawAmount();
+            break;
+        case 4:
+            atm.checkBalance();
+            break;
+        default:
+            cout << "thank you for the transaction!";
+        }
+    } while (choice < 5);
+   
+
+    return 0;
+}
